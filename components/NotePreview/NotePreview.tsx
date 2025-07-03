@@ -1,5 +1,5 @@
 "use client";
-import css from "./NotePreview.module.css"
+import css from "../../app/@modal/(.)notes/[id]/NotePreview.module.css"
 import { useRouter } from "next/navigation";
 
 

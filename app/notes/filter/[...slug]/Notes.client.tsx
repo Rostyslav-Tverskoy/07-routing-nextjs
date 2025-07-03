@@ -10,6 +10,7 @@ import styles from "../../App.module.css";
 import { useDebounce } from "use-debounce";
 import { fetchNotes } from "../../../../lib/api";
 import type { Note } from "../../../../types/note";
+import NoteForm from "@/components/NoteForm/NoteForm";
 
 interface NotesClientProps {
   initialNotes: Note[];
@@ -81,7 +82,9 @@ const NotesClient: React.FC<NotesClientProps> = ({
         />
       )}
 
-      {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && ( <Modal>
+        <NoteForm onSuccess={() => setIsModalOpen(false)} />
+        </Modal>) }
     </div>
   );
 };

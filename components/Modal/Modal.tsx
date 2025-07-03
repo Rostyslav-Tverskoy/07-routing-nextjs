@@ -1,49 +1,42 @@
-"use client"
+"use client";
 
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import NoteForm from '../NoteForm/NoteForm';
-import styles from './NoteModal.module.css';
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
+import { useRouter } from "next/navigation";
+import styles from "./NoteModal.module.css";
 
-interface NoteModalProps {
-  onClose: () => void;
-}
+type Props = {
+  children: React.ReactNode;
+};
 
+const Modal = ({ children }: Props) => {
+  const router = useRouter();
 
+  const close = () => router.back();
 
-
-const Modal = ({ onClose }: NoteModalProps) => {
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
     };
-    window.addEventListener('keydown', handler);
-
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleEsc);
     return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handler);
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleEsc);
     };
-  }, [onClose]);
+  }, [close]);
 
   const onBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+    if (e.target === e.currentTarget) close();
   };
 
   return createPortal(
-    <div
-      className={styles.backdrop}
-      onClick={onBackdropClick}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className={styles.modal} onClick={e => e.stopPropagation()}>
-        <NoteForm onSuccess={onClose} />
+    <div className={styles.backdrop} onClick={onBackdropClick}>
+      <div className={styles.modal}>
+        {children}
+        <button className={styles.backBtn} onClick={close}>
+          Close
+        </button>
       </div>
     </div>,
     document.body
