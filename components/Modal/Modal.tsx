@@ -12,7 +12,7 @@ interface NoteModalProps {
 
 
 
-const NoteModal = ({ onClose }: NoteModalProps) => {
+const Modal = ({ onClose }: NoteModalProps) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -50,4 +50,4 @@ const NoteModal = ({ onClose }: NoteModalProps) => {
   );
 };
 
-export default NoteModal;
+export default Modal;
