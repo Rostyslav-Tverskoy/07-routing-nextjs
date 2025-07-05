@@ -11,9 +11,8 @@ interface NoteListProps {
   isSuccess?: boolean;
 }
 
-const NoteList = ({ notes, isLoading, isError, isSuccess }: NoteListProps) => {
+const NoteList = ({ notes, isLoading, isError }: NoteListProps) => {
   const queryClient = useQueryClient();
-  console.log(notes);
   
 
   const deleteMutation = useMutation({
@@ -25,7 +24,6 @@ const NoteList = ({ notes, isLoading, isError, isSuccess }: NoteListProps) => {
 
   if (isLoading) return <p>Loading notes...</p>;
   if (isError) return <p>Failed to load notes.</p>;
-  if (!isSuccess || notes.length === 0) return <p>No notes found.</p>;
 
   return (
     <ul className={styles.list}>
