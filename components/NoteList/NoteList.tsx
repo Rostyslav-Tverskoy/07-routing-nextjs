@@ -21,6 +21,7 @@ const NoteList = ({ notes, isLoading, isError }: NoteListProps) => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
     },
   });
+  
 
   if (isLoading) return <p>Loading notes...</p>;
   if (isError) return <p>Failed to load notes.</p>;

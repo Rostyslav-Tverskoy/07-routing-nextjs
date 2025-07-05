@@ -73,9 +73,9 @@ const NotesClient: React.FC<NotesClientProps> = ({
         </button>
       </header>
 
-      {data.notes.length > 0 && (
-        <NoteList  notes={data.notes}/>
-      )}
+      {data.notes.length > 0 ? 
+        <NoteList  notes={data.notes}/> : <p>No notes found</p>
+      }
 
       {isModalOpen && ( <Modal onClose={() => setIsModalOpen(false)}>
         <NoteForm onClose={() => setIsModalOpen(false)} />
