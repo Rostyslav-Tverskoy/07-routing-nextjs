@@ -6,13 +6,15 @@ import type { Note } from '../../types/note';
 
 interface NoteListProps {
   notes: Note[];
-  isLoading: boolean;
-  isError: boolean;
-  isSuccess: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
+  isSuccess?: boolean;
 }
 
 const NoteList = ({ notes, isLoading, isError, isSuccess }: NoteListProps) => {
   const queryClient = useQueryClient();
+  console.log(notes);
+  
 
   const deleteMutation = useMutation({
     mutationFn: (id: number) => deleteNote(id),

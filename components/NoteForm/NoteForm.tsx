@@ -6,7 +6,8 @@ import { createNote } from '../../lib/api';
 import { Note } from '@/types/note';
 
 interface NoteFormProps {
-  onSuccess: () => void;
+
+  onClose: () => void;
 }
 
 type NoteFormValues = Omit<Note, 'id' | 'createdAt' | 'updatedAt'>;
@@ -20,14 +21,13 @@ const validationSchema = Yup.object({
     .required('Tag is required'),
 });
 
-const NoteForm = ({ onSuccess }: NoteFormProps) => {
+const NoteForm = ({ onClose }: NoteFormProps) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: (newNote: NoteFormValues) => createNote(newNote),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
-      onSuccess();
     },
   });
 
@@ -85,7 +85,7 @@ const NoteForm = ({ onSuccess }: NoteFormProps) => {
             <button
               type="button"
               className={styles.cancelButton}
-              onClick={onSuccess}
+              onClick={onClose}
               disabled={isSubmitting}
             >
               Cancel

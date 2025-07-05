@@ -2,21 +2,21 @@
 
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useRouter } from "next/navigation";
 import styles from "./NoteModal.module.css";
 
 type Props = {
   children: React.ReactNode;
+  onClose: () => void;
 };
 
-const Modal = ({ children }: Props) => {
-  const router = useRouter();
+const Modal = ({ children, onClose }: Props) => {
 
-  const close = () => router.back();
+
+
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") onClose();
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleEsc);
@@ -24,17 +24,17 @@ const Modal = ({ children }: Props) => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleEsc);
     };
-  }, [close]);
+  }, [onClose]);
 
   const onBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) close();
+    if (e.target === e.currentTarget) onClose();
   };
 
   return createPortal(
     <div className={styles.backdrop} onClick={onBackdropClick}>
       <div className={styles.modal}>
         {children}
-        <button className={styles.backBtn} onClick={close}>
+        <button className={styles.backBtn} onClick={onClose}>
           Close
         </button>
       </div>

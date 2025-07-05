@@ -36,7 +36,7 @@ const NotesClient: React.FC<NotesClientProps> = ({
     setPage(1);
   }, [search]);
 
-  const { data, isLoading, isError, isSuccess } = useQuery<{
+  const { data } = useQuery<{
     notes: Note[];
     totalPages: number;
   }>({
@@ -74,16 +74,11 @@ const NotesClient: React.FC<NotesClientProps> = ({
       </header>
 
       {data.notes.length > 0 && (
-        <NoteList
-          notes={data.notes}
-          isLoading={isLoading}
-          isError={isError}
-          isSuccess={isSuccess}
-        />
+        <NoteList  notes={data.notes}/>
       )}
 
-      {isModalOpen && ( <Modal>
-        <NoteForm onSuccess={() => setIsModalOpen(false)} />
+      {isModalOpen && ( <Modal onClose={() => setIsModalOpen(false)}>
+        <NoteForm onClose={() => setIsModalOpen(false)} />
         </Modal>) }
     </div>
   );

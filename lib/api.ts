@@ -59,17 +59,9 @@ export const deleteNote = async (id: number): Promise<Note> => {
 };
 
 
-export const fetchNoteById = async (id: number | undefined): Promise<Note> => {
+export const fetchNoteById = async (id: number): Promise<Note> => {
   const response = await axios.get<Note>(`${API_BASE}/${id}`, {headers});
   return response.data;
 };
 
 
-export const getCategoryByTag = async (tag: string) => {
-  const {data} = await axios.get<Note[]>(`${API_BASE}`, {
-    params: {
-      tag: {tag}
-    }
-  })
-  return data;
-}
